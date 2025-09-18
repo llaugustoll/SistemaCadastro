@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SistemaCadastro.Application\SistemaCadastro.Application.csproj" />
+  </ItemGroup>
+
 </Project>
