@@ -10,4 +10,8 @@
     <ProjectReference Include="..\SistemaCadastro.Domain\SistemaCadastro.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\Requests\" />
+  </ItemGroup>
+
 </Project>
