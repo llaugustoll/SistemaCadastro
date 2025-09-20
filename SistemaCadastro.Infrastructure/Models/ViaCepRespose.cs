@@ -1,5 +1,6 @@
-﻿namespace SistemaCadastro.Domain.DataStructure;
-public class EnderecoViaCepResponse
+﻿namespace SistemaCadastro.Infrastructure.Models;
+
+public class ViaCepRespose
 {
     public string Cep { get; set; }
     public string Logradouro { get; set; }

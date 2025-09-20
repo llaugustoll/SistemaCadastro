@@ -14,4 +14,8 @@
     <ProjectReference Include="..\SistemaCadastro.Domain\SistemaCadastro.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Adapters\In\" />
+  </ItemGroup>
+
 </Project>

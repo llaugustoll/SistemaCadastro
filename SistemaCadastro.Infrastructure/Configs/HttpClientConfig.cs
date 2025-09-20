@@ -18,7 +18,7 @@ public static class HttpClientConfig
 
     public static IServiceCollection AddHttpClientConfig(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddRefitClient<IEnderecoPort>(_refitSettingsWithCamelCase).ConfigureHttpClient(c =>
+        services.AddRefitClient<IEndereco>(_refitSettingsWithCamelCase).ConfigureHttpClient(c =>
         {
             c.BaseAddress = new Uri(configuration.GetValue<string>("Services:Endereco:Uri"));
         });
