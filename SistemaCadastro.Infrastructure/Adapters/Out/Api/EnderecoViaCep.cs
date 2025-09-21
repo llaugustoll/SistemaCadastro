@@ -1,9 +1,9 @@
 ﻿using SistemaCadastro.Domain.DataStructure;
 using SistemaCadastro.Domain.Ports;
 
-namespace SistemaCadastro.Infrastructure.Adapters.Out;
+namespace SistemaCadastro.Infrastructure.Adapters.Out.Api;
 
-public class EnderecoViaCep : IEndereco
+public class EnderecoViaCep : IEnderecoApi
 {
     public readonly IViaCepApi _viaCepApi;
     public EnderecoViaCep(IViaCepApi viaCepApi)

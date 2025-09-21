@@ -1,7 +1,7 @@
 ﻿using Refit;
 using SistemaCadastro.Infrastructure.Models;
 
-namespace SistemaCadastro.Infrastructure.Adapters.Out;
+namespace SistemaCadastro.Infrastructure.Adapters.Out.Api;
 
 public interface IViaCepApi
 {
