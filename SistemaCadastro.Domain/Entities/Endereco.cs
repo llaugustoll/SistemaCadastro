@@ -1,4 +1,4 @@
-﻿namespace SistemaCadastro.Domain.Entity;
+﻿namespace SistemaCadastro.Domain.Entities;
 
 public class Endereco
 {

@@ -2,7 +2,7 @@
 
 namespace SistemaCadastro.Domain.Ports;
 
-public interface IEndereco
+public interface IEnderecoApi
 {
     Task<EnderecoResponse> ObterEnderecoViaCepAsync();
 }
