@@ -1,0 +1,52 @@
+services:
+  sistemacadastro.api:
+    image: ${DOCKER_REGISTRY-}sistemacadastroapi
+    build:
+      context: .
+      dockerfile: SistemaCadastro.API/Dockerfile
+    ports:
+        - "5567:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStringsPostgres__Host=dbcadastro
+      - ConnectionStringsPostgres__Port=5432
+      - ConnectionStringsPostgres__Database=CadastroPessoas
+      - ConnectionStringsPostgres__User=admin
+      - ConnectionStringsPostgres__Password=adminlocal
+      - ConnectionStringsMongo__Database=CadastroEnderecos
+      - ConnectionStringsMongo__User=admin
+      - ConnectionStringsMongo__Password=adminlocal
+    networks:
+      - sistema_cadastro_network
+  
+  postgres:
+    image: postgres:15
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: adminlocal
+      POSTGRES_DB: CadastroPessoas
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - sistema_cadastro_network
+
+  mongo:
+    image: mongo:7
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: adminlocal
+      MONGO_INITDB_DATABASE: CadastroEnderecos
+    volumes:
+      - mongo_data:/data/db
+    networks:
+        - sistema_cadastro_network
+
+networks:
+  sistema_cadastro_network:
+    external: true
