@@ -4,19 +4,39 @@ using SistemaCadastro.Infrastructure.Configs;
 
 namespace SistemaCadastro.Infrastructure.Adapters.Out.Databases;
 public class PostgresPessoaRepository : IPessoaRepository
-    private readonly DbContext _context;
+{
+    private readonly AppDbContext _context;
 
-    public PostgresPessoaRepository(DbContext context)
+    public PostgresPessoaRepository(AppDbContext context)
     {
         _context = context;
     }
 
-    public async Task<Pessoa> GetByIdAsync(Guid id) =>
-        await _context.Pessoas.FindAsync(id);
-
-    public async Task AddAsync(Pessoa pessoa)
+    public async Task<Pessoa> GetByIdAsync(Guid id)
     {
-        _context.Pessoas.Add(pessoa);
+        return await _context.Pessoas.FindAsync(id);
+    }
+
+    public async Task<Pessoa> AddAsync(Pessoa pessoa)
+    {
+        var pessoaCriada = _context.Pessoas.Add(pessoa);
         await _context.SaveChangesAsync();
+        return pessoaCriada.Entity;
     }
 }
+    //    private readonly AppDbContext _context;
+
+    //    public PostgresPessoaRepository(AppDbContext context)
+    //    {
+    //        _context = context;
+    //    }
+
+    //    public async Task<Pessoa> GetByIdAsync(Guid id) =>
+    //        await _context.Pessoas.FindAsync(id);
+
+    //    public async Task AddAsync(Pessoa pessoa)
+    //    {
+    //        _context.Pessoas.Add(pessoa);
+    //        await _context.SaveChangesAsync();
+    //    }
+    //}

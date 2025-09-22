@@ -2,12 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 namespace SistemaCadastro.Infrastructure.Configs
 {
-    public class DbContext : Microsoft.EntityFrameworkCore.DbContext
+    public class AppDbContext : DbContext
     {
-        public DbContext(DbContextOptions<DbContext> options)
+        public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options) { }
 
-        // DbSets -> mapeiam as entidades do domínio para tabelas no banco
         public DbSet<Pessoa> Pessoas { get; set; }
         public DbSet<Endereco> Enderecos { get; set; }
 
@@ -15,8 +14,7 @@ namespace SistemaCadastro.Infrastructure.Configs
         {
             base.OnModelCreating(modelBuilder);
 
-            // Aplicar configurações específicas
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(DbContext).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
         }
     }
 }
