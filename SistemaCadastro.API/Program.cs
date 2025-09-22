@@ -1,9 +1,12 @@
-using Asp.Versioning;
+﻿using Asp.Versioning;
 using Asp.Versioning.ApiExplorer;
+using Microsoft.EntityFrameworkCore;
+using SistemaCadastro.Domain.Ports;
+using SistemaCadastro.Infrastructure.Adapters.Out.Databases;
 using SistemaCadastro.Infrastructure.Configs;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
-
 
 builder.Services.AddControllers();
 
@@ -19,11 +22,22 @@ builder.Services.AddApiVersioning(options =>
     options.SubstituteApiVersionInUrl = true;
 });
 
+builder.Services.AddScoped<IPessoaRepository, PostgresPessoaRepository>();
+
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddHttpClientConfig(builder.Configuration);
 
+
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(
+    Assembly.Load("SistemaCadastro.Application")
+));
+
 builder.Services.AddHealthChecks();
+
+var connectionString = builder.Configuration.GetConnectionString("Postgres");
+
+builder.Services.AddInfrastructure(connectionString);
 
 var app = builder.Build();
 

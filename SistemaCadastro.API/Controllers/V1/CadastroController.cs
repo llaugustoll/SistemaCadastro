@@ -1,5 +1,7 @@
 ﻿using Asp.Versioning;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SistemaCadastro.Application.CQRS.V1.Commands;
 using SistemaCadastro.API.Controllers.V1.Models;
 
 namespace SistemaCadastro.API.Controllers.V1;
@@ -9,7 +11,7 @@ namespace SistemaCadastro.API.Controllers.V1;
 [Route("v{version:apiVersion}/[controller]")]
 [Produces("application/json")]
 [Consumes("application/json")]
-public class CadastroController : ControllerBase
+public class CadastroController(IMediator mediator) : ControllerBase
 {
     [HttpGet("{id}")]
     public IActionResult GetById(int id)
@@ -18,9 +20,16 @@ public class CadastroController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Create([FromBody] CreateCadastroRequest cadastro)
+    public async Task<IActionResult> Create([FromBody] CreateCadastroRequest cadastro)
     {
-        return CreatedAtAction(nameof(GetById), new { id = 0 }, null);
+        var result = await mediator.Send(new CreateCadastroCommand
+            (
+                cadastro.Cpf,
+                cadastro.Nome,
+                cadastro.Cep
+             ));
+
+        return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
     }
 
     [HttpPut("{id}")]
