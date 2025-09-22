@@ -10,8 +10,10 @@ public class EnderecoViaCep : IEnderecoApi
     {
         _viaCepApi = viaCepApi;
     }
-    public async Task<EnderecoResponse> ObterEnderecoViaCepAsync()
+    public async Task<EnderecoResponse> ObterEnderecoViaCepAsync(string cep)
     {
-        return await Task.FromResult(new EnderecoResponse());
+        var endereco = await _viaCepApi.GetEnderecoByCepAsync(cep);
+
+        return endereco;
     }
 }

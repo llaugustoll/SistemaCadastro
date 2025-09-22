@@ -4,5 +4,5 @@ namespace SistemaCadastro.Domain.Ports;
 
 public interface IEnderecoApi
 {
-    Task<EnderecoResponse> ObterEnderecoViaCepAsync();
+    Task<EnderecoResponse> ObterEnderecoViaCepAsync(string cep);
 }

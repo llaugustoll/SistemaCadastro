@@ -8,8 +8,6 @@ namespace SistemaCadastro.Infrastructure.Configs
             : base(options) { }
 
         public DbSet<Pessoa> Pessoas { get; set; }
-        public DbSet<Endereco> Enderecos { get; set; }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
