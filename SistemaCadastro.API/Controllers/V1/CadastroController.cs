@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SistemaCadastro.Application.CQRS.V1.Commands;
 using SistemaCadastro.API.Controllers.V1.Models;
+using System.Threading.Tasks;
 
 namespace SistemaCadastro.API.Controllers.V1;
 
@@ -39,9 +40,14 @@ public class CadastroController(IMediator mediator) : ControllerBase
         return NoContent();
     }
 
-    [HttpDelete("{id}")]
-    public IActionResult Delete(int id)
+    [HttpDelete("{documento}")]
+    public async Task<IActionResult> Delete(string documento)
     {
-        return NoContent();
+        var result = await mediator.Send(new DeleteCadastroCommand(documento));
+
+        if (result)
+            return NoContent();
+
+        return BadRequest();
     }
 }

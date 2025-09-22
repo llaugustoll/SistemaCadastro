@@ -6,4 +6,5 @@ public interface IPessoaRepository
 {
     Task<Pessoa> GetByIdAsync(Guid id);
     Task<Pessoa> AddAsync(Pessoa cadastro);
+    Task<bool> DeleteAsync(string documento);
 }
