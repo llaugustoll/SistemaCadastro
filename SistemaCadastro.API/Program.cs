@@ -1,8 +1,11 @@
 ﻿using Asp.Versioning;
 using Asp.Versioning.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using SistemaCadastro.Domain.Ports;
+using SistemaCadastro.Infrastructure.Adapters.Out.Api;
 using SistemaCadastro.Infrastructure.Adapters.Out.Databases;
+using SistemaCadastro.Infrastructure.Adapters.Out.MongoDB;
 using SistemaCadastro.Infrastructure.Configs;
 using System.Reflection;
 
@@ -23,6 +26,7 @@ builder.Services.AddApiVersioning(options =>
 });
 
 builder.Services.AddScoped<IPessoaRepository, PostgresPessoaRepository>();
+builder.Services.AddScoped<IEnderecoApi, EnderecoViaCep>();
 
 builder.Services.AddSwaggerGen();
 
@@ -37,7 +41,9 @@ builder.Services.AddHealthChecks();
 
 var connectionString = builder.Configuration.GetConnectionString("Postgres");
 
-builder.Services.AddInfrastructure(connectionString);
+builder.Services.AddPostgresInfrastructure(connectionString);
+
+builder.Services.AddMongoDb(builder.Configuration);
 
 var app = builder.Build();
 

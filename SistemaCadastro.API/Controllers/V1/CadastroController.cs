@@ -26,7 +26,8 @@ public class CadastroController(IMediator mediator) : ControllerBase
             (
                 cadastro.Cpf,
                 cadastro.Nome,
-                cadastro.Cep
+                cadastro.Cep,
+                cadastro.NumeroResidencia
              ));
 
         return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);

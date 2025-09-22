@@ -6,24 +6,32 @@ using SistemaCadastro.Domain.Entities;
 
 namespace SistemaCadastro.Application.CQRS.V1.Handlers;
 
-public class CreateCadastroHandler(IPessoaRepository pessoaRepository) : IRequestHandler<CreateCadastroCommand, CreateCadastroResponse>
+public class CreateCadastroHandler(
+    IPessoaRepository pessoaRepository, 
+    IEnderecoApi enderecoApi, 
+    IMediator mediator
+    ) : IRequestHandler<CreateCadastroCommand, CreateCadastroResponse>
 {
     public async Task<CreateCadastroResponse> Handle(CreateCadastroCommand request, CancellationToken cancellationToken)
     {
-        var endereco = new Endereco
-        {
-            Cep = request.cep,
-            Logradouro = "Rua teste",
-            Numero = "1234",
-            Bairro = "jd São paulo",
-            Cidade = "São Paulo",
-            Estado = "São Paulo"
-        };
+
+        var enderecoApiResponse = await enderecoApi.ObterEnderecoViaCepAsync(request.Cep);
+
+        var endereco = await mediator.Send(new CreateEnderecoCommand(
+            enderecoApiResponse.Logradouro, 
+            request.NumeroResidencia ?? "Sem Numero",
+            enderecoApiResponse.Bairro,
+            enderecoApiResponse.Uf,
+            enderecoApiResponse.Cep,
+            enderecoApiResponse.Localidade
+            ));
+
+
         var pessoa = new PessoaFisica
         {
-            Cpf = request.cpf,
-            Nome = request.nome,
-            Endereco = endereco,
+            Cpf = request.Cpf,
+            Nome = request.Nome,
+            EnderecoId = endereco.Id,
             DataNascimento = DateTime.UtcNow
             
         };

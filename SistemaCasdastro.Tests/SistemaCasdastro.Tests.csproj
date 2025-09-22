@@ -12,8 +12,17 @@
   <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+    <PackageReference Include="Moq" Version="4.20.72" />
     <PackageReference Include="xunit" Version="2.5.3" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.5.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SistemaCadastro.API\SistemaCadastro.API.csproj" />
+    <ProjectReference Include="..\SistemaCadastro.Application\SistemaCadastro.Application.csproj" />
+    <ProjectReference Include="..\SistemaCadastro.Domain\SistemaCadastro.Domain.csproj" />
+    <ProjectReference Include="..\SistemaCadastro.Infrastructure\SistemaCadastro.Infrastructure.csproj" />
+    <ProjectReference Include="..\SistemaCadastro.Interfaces\SistemaCadastro.Interfaces.csproj" />
   </ItemGroup>
 
   <ItemGroup>
