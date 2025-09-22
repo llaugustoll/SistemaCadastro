@@ -10,4 +10,6 @@ public class Endereco
     public string Cidade { get; set; }
     public string Estado { get; set; }
     public string Cep { get; set; }
+
+    public virtual IEnumerable<Pessoa> Pessoa { get; set; }
 }
