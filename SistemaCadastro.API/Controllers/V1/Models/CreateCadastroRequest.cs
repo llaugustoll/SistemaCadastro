@@ -2,7 +2,7 @@
 
 public class CreateCadastroRequest
 {
-    public string Cpf { get; set; }
+    public string Documento { get; set; }
     public string Nome { get; set; }
     public string Cep { get; set; }
     public string? NumeroResidencia { get; set; }

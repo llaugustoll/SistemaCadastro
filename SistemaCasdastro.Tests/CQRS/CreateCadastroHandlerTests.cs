@@ -17,7 +17,7 @@ public class CreateCadastroHandlerTests
         var mediatorMock = new Mock<IMediator>();
 
         var command = new CreateCadastroCommand(
-            Cpf: "12345678901",
+            Documento: "12345678901",
             Nome: "João da Silva",
             Cep: "01001000",
             NumeroResidencia: "123"

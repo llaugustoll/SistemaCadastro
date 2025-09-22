@@ -24,7 +24,7 @@ public class CadastroController(IMediator mediator) : ControllerBase
     {
         var result = await mediator.Send(new CreateCadastroCommand
             (
-                cadastro.Cpf,
+                cadastro.Documento,
                 cadastro.Nome,
                 cadastro.Cep,
                 cadastro.NumeroResidencia
