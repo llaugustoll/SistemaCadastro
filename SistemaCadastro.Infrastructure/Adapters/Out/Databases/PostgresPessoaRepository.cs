@@ -13,7 +13,7 @@ public class PostgresPessoaRepository : IPessoaRepository
         _context = context;
     }
 
-    public async Task<Pessoa> GetByIdAsync(Guid id)
+    public async Task<Pessoa> GetByIdAsync(int id)
     {
         return await _context.Pessoas.FindAsync(id);
     }

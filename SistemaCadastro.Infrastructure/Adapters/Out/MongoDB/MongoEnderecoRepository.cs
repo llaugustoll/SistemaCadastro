@@ -13,10 +13,15 @@ public class MongoEnderecoRepository : IEnderecoRepository
     {
         _collection = database.GetCollection<EnderecoDocument>("Enderecos");
     }
-    public Task<Endereco> GetByIdAsync(Guid id)
+
+    public async Task<Endereco> GetByIdAsync(string id)
     {
-        return Task.FromResult(new Endereco { Cep = "0125151" });
+        var cursor = await _collection.FindAsync(e => e.Id == id);
+        var doc = await cursor.FirstOrDefaultAsync();
+
+        return EnderecoMapper.ToDomain(doc);
     }
+
     public async Task<Endereco> AddAsync(Endereco endereco)
     {
         var doc = EnderecoMapper.ToDocument(endereco);

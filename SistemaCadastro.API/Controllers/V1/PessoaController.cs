@@ -1,9 +1,9 @@
 ﻿using Asp.Versioning;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using SistemaCadastro.Application.CQRS.V1.Commands;
 using SistemaCadastro.API.Controllers.V1.Models;
-using System.Threading.Tasks;
+using SistemaCadastro.Application.CQRS.V1.Commands;
+using SistemaCadastro.Application.Models.Responses;
 
 namespace SistemaCadastro.API.Controllers.V1;
 
@@ -12,12 +12,17 @@ namespace SistemaCadastro.API.Controllers.V1;
 [Route("v{version:apiVersion}/[controller]")]
 [Produces("application/json")]
 [Consumes("application/json")]
-public class CadastroController(IMediator mediator) : ControllerBase
+public class PessoaController(IMediator mediator) : ControllerBase
 {
     [HttpGet("{id}")]
-    public IActionResult GetById(int id)
+    public async Task<IActionResult> GetById(int id)
     {
-        return Ok();
+        var result = await mediator.Send(new GetCadastroByIdCommand(id));
+
+        if (result == null)
+            return NotFound(new {message = "Cliente não encontrado"});
+
+        return Ok(result);
     }
 
     [HttpPost]

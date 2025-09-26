@@ -3,6 +3,6 @@
 namespace SistemaCadastro.Domain.Ports;
 public interface IEnderecoRepository
 {
-    Task<Endereco> GetByIdAsync(Guid id);
+    Task<Endereco> GetByIdAsync(string id);
     Task<Endereco> AddAsync(Endereco endereco);
 }
